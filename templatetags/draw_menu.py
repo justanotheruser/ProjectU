@@ -3,6 +3,6 @@ from django import template
 register = template.Library()
 
 
-@register.simple_tag(takes_context=True)
-def draw_menu(context, menu_name):
-    return f'Placeholder for {menu_name}'
+@register.inclusion_tag('menu.html')
+def draw_menu(menu_name):
+    return {'menu_name': menu_name}
