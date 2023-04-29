@@ -1,37 +1,68 @@
 <div>
-    Placeholder for {{ menu_name }}
     <ul class="tree">
-      <!-- (A) "NORMAL" ITEMS -->
-      <li>Item A</li>
-      <li>Item B</li>
-
-      <!-- (B) SECTION -->
-      <li class="section">
-        <input type="checkbox" id="groupA">
-        <label for="groupA">Group A</label>
-        <ul>
-          <li>Group A Item 1</li>
-          <li>Group A Item 2</li>
-        </ul>
-      </li>
-
-      <!-- (C) SECTION WITH SUB-SECTION -->
-      <li class="section">
-        <input type="checkbox" id="groupB">
-        <label for="groupB">Group B</label>
-        <ul>
-          <li>Group B Item 1</li>
-          <li>Group B Item 2</li>
-          <!-- SUB-SECTION -->
+    {% for item in menu %}
+      {% with section_id=item.text %}
+        {% if not item.children %}
+          <li> {{ item.text }} </li>
+        {% else %}
           <li class="section">
-            <input type="checkbox" id="groupC">
-            <label for="groupC">Group C</label>
-            <ul>
-              <li>Group C Item 1</li>
-              <li>Group C Item 2</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
+          <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
+          <label for="{{ section_id }}">{{ item.text }}</label>
+          <ul>
+          {% for item in item.children %}
+            {% with section_id=section_id|add:"_"|add:item.text %}
+            {% if not item.children %}
+              <li> {{ item.text }} </li>
+            {% else %}
+                <li class="section">
+                <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
+                <label for="{{ section_id }}">{{ item.text }}</label>
+                <ul>
+                {% for item in item.children %}
+                {% with section_id=section_id|add:"_"|add:item.text %}
+                  {% if not item.children %}
+                    <li> {{ item.text }} </li>
+                  {% else %}
+                      <li class="section">
+                      <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
+                      <label for="{{ section_id }}">{{ item.text }}</label>
+                      <ul>
+                      {% for item in item.children %}
+                      {% with section_id=section_id|add:"_"|add:item.text %}
+                        {% if not item.children %}
+                          <li> {{ item.text }} </li>
+                        {% else %}
+                            <li class="section">
+                            <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
+                            <label for="{{ section_id }}">{{ item.text }}</label>
+                            <ul>
+                            {% for item in item.children %}
+                            {% with section_id=section_id|add:"_"|add:item.text %}
+                              {% if not item.children %}
+                                <li> {{ item.text }} </li>
+                              {% else %}
+                                  <li class="section">
+                                  <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
+                                  <label for="{{ section_id }}">{{ item.text }}</label>
+                                  <ul>
+                                  </ul>
+                              {% endif %}
+                            {% endwith %}
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                      {% endwith %}
+                      {% endfor %}
+                      </ul>
+                  {% endif %}
+                {% endwith %}
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    {% endfor %}
 </div>
