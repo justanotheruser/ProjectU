@@ -3,50 +3,42 @@
     {% for item in menu %}
       {% with section_id=item.text %}
         {% if not item.children %}
-          <li> {{ item.text }} </li>
+          <li>{% include "menu_link.html" %}</li>
         {% else %}
           <li class="section">
           <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
-          <label for="{{ section_id }}">{{ item.text }}</label>
+          <label for="{{ section_id }}">{% include "menu_link.html" %}</label>
           <ul>
           {% for item in item.children %}
             {% with section_id=section_id|add:"_"|add:item.text %}
             {% if not item.children %}
-              <li> {{ item.text }} </li>
+              <li>{% include "menu_link.html" %}</li>
             {% else %}
                 <li class="section">
                 <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
-                <label for="{{ section_id }}">{{ item.text }}</label>
+                <label for="{{ section_id }}">{% include "menu_link.html" %}</label>
                 <ul>
                 {% for item in item.children %}
                 {% with section_id=section_id|add:"_"|add:item.text %}
                   {% if not item.children %}
-                    <li> {{ item.text }} </li>
+                    <li>{% include "menu_link.html" %}</li>
                   {% else %}
                       <li class="section">
                       <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
-                      <label for="{{ section_id }}">{{ item.text }}</label>
+                      <label for="{{ section_id }}">{% include "menu_link.html" %}</label>
                       <ul>
                       {% for item in item.children %}
                       {% with section_id=section_id|add:"_"|add:item.text %}
                         {% if not item.children %}
-                          <li> {{ item.text }} </li>
+                          <li>{% include "menu_link.html" %}</li>
                         {% else %}
                             <li class="section">
                             <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
-                            <label for="{{ section_id }}">{{ item.text }}</label>
+                            <label for="{{ section_id }}">{% include "menu_link.html" %}</label>
                             <ul>
                             {% for item in item.children %}
                             {% with section_id=section_id|add:"_"|add:item.text %}
-                              {% if not item.children %}
-                                <li> {{ item.text }} </li>
-                              {% else %}
-                                  <li class="section">
-                                  <input type="checkbox" id="{{ section_id }}" {% if item.is_selected %}checked{% endif %}>
-                                  <label for="{{ section_id }}">{{ item.text }}</label>
-                                  <ul>
-                                  </ul>
-                              {% endif %}
+                                <li>{% include "menu_link.html" %}</li>
                             {% endwith %}
                             {% endfor %}
                             </ul>

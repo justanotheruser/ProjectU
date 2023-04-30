@@ -39,7 +39,7 @@ def convert_menu_for_template(root: MenuNode):
 
 
 @register.inclusion_tag('menu.html')
-def draw_menu(menu_name):
+def draw_menu(menu_name: str, url: str):
     query_set = TreeMenu.objects.filter(name=menu_name)
     if len(query_set) == 0:
         return {}
