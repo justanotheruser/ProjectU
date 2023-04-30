@@ -1,1 +1,6 @@
-<a href="{% url item.url %}">{{ item.text }}</a>
+{% if item.is_named_url %}
+<a href="{% url item.url %}">
+{% else %}
+<a href="{{ item.url }}">
+{% endif %}
+{{ item.text }}</a>
