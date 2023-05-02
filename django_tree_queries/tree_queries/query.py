@@ -3,7 +3,7 @@ from functools import wraps
 from django.db import connections, models
 from django.db.models.sql.query import Query
 
-from tree_queries.compiler import SEPARATOR, TreeQuery
+from .compiler import SEPARATOR, TreeQuery
 
 
 def pk(of):
